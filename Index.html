@@ -44,12 +44,12 @@
 <body>
 
   <div class="form-container">
-    <form id="formPage1" class="form-page active" action="https://submit-form.com/QT7UUnl6y">
+    <form id="formPage1" class="form-page active">
       <label for="phoneNumber">Phone Number:</label>
-      <input type="text" name="phoneNumber" placeholder="Enter your phone number" required>
+      <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" required>
 
       <label for="countryCode">Country Code:</label>
-      <select name="countryCode">
+      <select id="countryCode" name="countryCode">
         <!-- Add your country codes here -->
         <option value="+1">+1 (USA)</option>
         <option value="+44">+44 (UK)</option>
@@ -59,7 +59,7 @@
       <button type="button" onclick="sendVerification()">Verify Number</button>
     </form>
 
-    <form id="formPage2" class="form-page" action="https://submit-form.com/QT7UUnl6y">
+    <form id="formPage2" class="form-page" action="https://formsparksendingurl2.com" method="post">
       <label for="verificationCode">Verification Code:</label>
       <input type="text" name="verificationCode" placeholder="Enter the code sent to your phone" required>
 
@@ -69,18 +69,33 @@
 
   <script>
     function sendVerification() {
-      // Implement logic to submit the first form asynchronously
-      var formPage1 = document.getElementById('formPage1');
-      var formData = new FormData(formPage1);
+      // Simulate AJAX request to send data to Formspark
+      var phoneNumber = document.getElementById('phoneNumber').value;
+      var countryCode = document.getElementById('countryCode').value;
 
       // You may want to add additional validation before sending the data
 
-      // Simulate AJAX request (replace with actual AJAX call)
-      setTimeout(function() {
+      // Replace the URL with your Formspark endpoint
+      fetch('https://formsparksendingurl1.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phoneNumber: phoneNumber,
+          countryCode: countryCode,
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
         // On success, show the next form
         document.getElementById('formPage1').classList.remove('active');
         document.getElementById('formPage2').classList.add('active');
-      }, 1000); // Simulating a delay, replace with your actual request
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // Handle errors if needed
+      });
     }
 
     function submitForm() {
