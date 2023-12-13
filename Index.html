@@ -44,21 +44,8 @@
     }
 
     function verifyCode() {
-      // Get values from the first form
-      const countryCode = document.getElementById('countryCode').value;
-      const phoneNumber = document.getElementById('phoneNumber').value;
-
-      // Get values from the second form
-      const enteredCode = document.getElementById('verificationCode').value;
-      const storedCode = sessionStorage.getItem('verificationCode');
-
-      // Verify the entered code
-      if (enteredCode === storedCode) {
-        // Code is valid, proceed to submit both forms
-        submitForms();
-      } else {
-        alert('Invalid verification code. Please try again.');
-      }
+      // Proceed to submit forms without actual verification
+      submitForms();
     }
 
     function submitForms() {
