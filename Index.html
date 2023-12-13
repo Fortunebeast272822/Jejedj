@@ -64,7 +64,10 @@
         </select>
 
         <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">
+        <div style="display: flex;">
+            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">
+            <button type="button" onclick="getCode()">Get Code</button>
+        </div>
 
         <label for="verificationCode">Verification Code:</label>
         <input type="text" id="verificationCode" name="verificationCode" placeholder="Enter the code">
@@ -73,6 +76,26 @@
     </form>
 
     <script>
+        function getCode() {
+            // Add logic to send phone number to your server
+            const phoneNumber = document.getElementById('phoneNumber').value;
+
+            // Example: Send data to server for code generation
+            fetch('/get-code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ phoneNumber }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle response from server
+                console.log(data);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
         function verifyNumber() {
             // Add your verification logic here
             // Send verification code to the provided email
