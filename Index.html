@@ -10,14 +10,13 @@
 </head>
 <body>
 
-  <form id="phoneNumberForm">
-    <label for="countryCode">Country Code:</label>
-    <input type="text" id="countryCode" required>
-    <label for="phoneNumber">Phone Number:</label>
-    <input type="text" id="phoneNumber" required>
-    <button type="button" onclick="sendVerificationCode()">Next</button>
-  </form>
-
+ <form id="phoneNumberForm">
+    <label for="country">Country:</label>
+    <select id="country" required>
+      <option value="" disabled selected>Select Country</option>
+      <option value="US">United States</option>
+      <option value="CA">Canada</option>
+      
   <form id="verificationForm" style="display: none;">
     <label for="verificationCode">Verification Code:</label>
     <input type="text" id="verificationCode" required>
