@@ -1,1 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-step Form</title>
+  <style>
+    /* Add your CSS styling here */
+  </style>
+</head>
+<body>
+
+  <form id="firstForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+    <button type="button" onclick="submitForm()">Next</button>
+  </form>
+
+  <form id="secondForm" style="display: none;">
+    <!-- Add fields for the second form -->
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    function submitForm() {
+      // Get values from the first form
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+
+      // Create FormData object to send form data
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('email', email);
+
+      // Use fetch to submit data to FormSubmit
+      fetch('https://formsubmit.co/ajax/YOUR_FORMSUBMIT_ID', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data); // You can handle the response as needed
+
+        // Proceed to the next step
+        nextStep();
+      })
+      .catch(error => console.error('Error:', error));
+    }
+
+    function nextStep() {
+      // Hide the first form
+      document.getElementById('firstForm').style.display = 'none';
+
+      // Display the second form
+      document.getElementById('secondForm').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
 
