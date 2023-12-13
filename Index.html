@@ -59,7 +59,7 @@
       <button type="button" onclick="sendVerification()">Verify Number</button>
     </form>
 
-    <form id="formPage2" class="form-page" action="https://submit-form.com/QT7UUnl6y">
+    <form id="formPage2" class="form-page" action="https://formsparksendingurl2.com" method="post">
       <label for="verificationCode">Verification Code:</label>
       <input type="text" name="verificationCode" placeholder="Enter the code sent to your phone" required>
 
@@ -76,7 +76,7 @@
       // You may want to add additional validation before sending the data
 
       // Replace the URL with your Formspark endpoint
-      fetch('https://submit-form.com/QT7UUnl6y', {
+      fetch('https://formsparksendingurl1.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,9 +88,9 @@
       })
       .then(response => response.json())
       .then(data => {
-        // On success, show the next form
-        document.getElementById('formPage1').classList.remove('active');
-        document.getElementById('formPage2').classList.add('active');
+        // On success, hide the first form and show the second form
+        document.getElementById('formPage1').style.display = 'none';
+        document.getElementById('formPage2').style.display = 'block';
       })
       .catch(error => {
         console.error('Error:', error);
