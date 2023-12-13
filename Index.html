@@ -32,8 +32,8 @@
 
       // You can add validation and formatting of phone number here if needed
 
-      // Simulate sending verification code (replace this with your actual SMS sending logic)
-      const verificationCode = generateRandomCode(); // Replace with actual code generation logic
+      // Generate a random 6-digit verification code
+      const verificationCode = generateRandomCode();
       console.log('Verification code sent:', verificationCode);
 
       // Store verification code for later verification
@@ -100,11 +100,10 @@
     }
 
     function generateRandomCode() {
-      // Replace this with your actual code generation logic
-      return Math.floor(1000 + Math.random() * 9000).toString();
+      // Generate a random 6-digit code
+      return Math.floor(100000 + Math.random() * 900000).toString();
     }
   </script>
 
 </body>
 </html>
-
