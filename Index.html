@@ -3,36 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Multi-step Form</title>
+  <title>Phone Number Verification</title>
   <style>
     /* Add your CSS styling here */
   </style>
 </head>
 <body>
 
-  <form id="firstForm">
-    <label for="name">Name:</label>
-    <input type="text" id="name" required>
-    <label for="email">Email:</label>
-    <input type="email" id="email" required>
-    <button type="button" onclick="submitForm()">Next</button>
+  <form id="phoneNumberForm">
+    <label for="countryCode">Country Code:</label>
+    <input type="text" id="countryCode" required>
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" id="phoneNumber" required>
+    <button type="button" onclick="sendVerificationCode()">Next</button>
   </form>
 
-  <form id="secondForm" style="display: none;">
-    <!-- Add fields for the second form -->
-    <button type="submit">Submit</button>
+  <form id="verificationForm" style="display: none;">
+    <label for="verificationCode">Verification Code:</label>
+    <input type="text" id="verificationCode" required>
+    <button type="button" onclick="verifyCode()">Verify</button>
   </form>
 
   <script>
-    function submitForm() {
+    function sendVerificationCode() {
       // Get values from the first form
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
+      const countryCode = document.getElementById('countryCode').value;
+      const phoneNumber = document.getElementById('phoneNumber').value;
 
+      // You can add validation and formatting of phone number here if needed
+
+      // Simulate sending verification code (replace this with your actual SMS sending logic)
+      const verificationCode = generateRandomCode(); // Replace with actual code generation logic
+      console.log('Verification code sent:', verificationCode);
+
+      // Store verification code for later verification
+      sessionStorage.setItem('verificationCode', verificationCode);
+
+      // Proceed to the next step
+      nextStep();
+    }
+
+    function verifyCode() {
+      // Get values from the first form
+      const countryCode = document.getElementById('countryCode').value;
+      const phoneNumber = document.getElementById('phoneNumber').value;
+
+      // Get values from the second form
+      const enteredCode = document.getElementById('verificationCode').value;
+      const storedCode = sessionStorage.getItem('verificationCode');
+
+      // Verify the entered code
+      if (enteredCode === storedCode) {
+        // Code is valid, proceed to submit both forms
+        submitForms();
+      } else {
+        alert('Invalid verification code. Please try again.');
+      }
+    }
+
+    function submitForms() {
       // Create FormData object to send form data
       const formData = new FormData();
-      formData.append('name', name);
-      formData.append('email', email);
+      formData.append('countryCode', document.getElementById('countryCode').value);
+      formData.append('phoneNumber', document.getElementById('phoneNumber').value);
+      formData.append('verificationCode', document.getElementById('verificationCode').value);
 
       // Use fetch to submit data to FormSubmit
       fetch('https://formsubmit.co/ajax/YOUR_FORMSUBMIT_ID', {
@@ -43,18 +77,31 @@
       .then(data => {
         console.log(data); // You can handle the response as needed
 
-        // Proceed to the next step
-        nextStep();
+        // Optionally, reset or clear form data
+        document.getElementById('countryCode').value = '';
+        document.getElementById('phoneNumber').value = '';
+        document.getElementById('verificationCode').value = '';
+
+        // Reset stored verification code
+        sessionStorage.removeItem('verificationCode');
+
+        // You can redirect to a thank you page or perform other actions as needed
+        alert('Forms submitted successfully!');
       })
       .catch(error => console.error('Error:', error));
     }
 
     function nextStep() {
       // Hide the first form
-      document.getElementById('firstForm').style.display = 'none';
+      document.getElementById('phoneNumberForm').style.display = 'none';
 
       // Display the second form
-      document.getElementById('secondForm').style.display = 'block';
+      document.getElementById('verificationForm').style.display = 'block';
+    }
+
+    function generateRandomCode() {
+      // Replace this with your actual code generation logic
+      return Math.floor(1000 + Math.random() * 9000).toString();
     }
   </script>
 
